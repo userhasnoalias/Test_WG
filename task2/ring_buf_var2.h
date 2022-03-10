@@ -10,11 +10,12 @@
 template<typename T>
 class ring_buffer
 {
-	using index_t = std::size_t;
+	using index_type = std::size_t;
 
+	using size_type = std::size_t;
 public:
 
-	ring_buffer(std::size_t size) : m_buf{ std::make_unique<T[]>(size) }, m_max_size{ size }
+	ring_buffer(size_type size) : m_buf{ std::make_unique<T[]>(size) }, m_max_size{ size }
 	{
 		assert(size > 0 && "ring_buffer size should be more than 0");
 	}
@@ -89,12 +90,12 @@ public:
 		return m_count == 0;
 	}
 
-	index_t size() const
+	size_type size() const
 	{
 		return m_count;
 	}
 
-	std::size_t capacity() const
+	size_type capacity() const
 	{
 		return m_max_size;
 	}
@@ -105,13 +106,13 @@ private:
 
 	std::unique_ptr<T[]> m_buf;
 
-	index_t m_head = 0;
+	index_type m_head = 0;
 
-	index_t m_tail = 0;
+	index_type m_tail = 0;
 	// Total number of elements in buffer
-	std::size_t m_count = 0;
+	size_type m_count = 0;
 
-	std::size_t m_max_size;
+	size_type m_max_size;
 };
 
 #endif // !RING_BUF_VAR2_H

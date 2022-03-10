@@ -34,7 +34,10 @@ class ring_buffer
 	static_assert(Size - 1 <= std::numeric_limits<std::int_least32_t>::max(),
 		"Max size for ringbuffer is 2^31");
 
-	using index_t = std::size_t;
+	using index_type = std::size_t;
+
+	using size_type = std::uint_least32_t;
+
 public:
 
 	ring_buffer() = default;
@@ -155,12 +158,12 @@ public:
 		return m_head == m_tail;
 	}
 
-	index_t size() const
+	size_type size() const
 	{
 		return m_head - m_tail;
 	}
 
-	std::uint_least32_t capacity() const
+	size_type capacity() const
 	{
 		return Size;
 	}
@@ -178,11 +181,11 @@ private:
 
 	std::array<T, Size> m_buf{};
 
-	index_t m_head = 0;
+	index_type m_head = 0;
 
-	index_t m_tail = 0;
+	index_type m_tail = 0;
 
-	index_t m_mask = Size - 1;
+	size_type m_mask = Size - 1;
 };
 
 #endif // !RING_BUF_VAR1_H
