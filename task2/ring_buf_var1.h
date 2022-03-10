@@ -91,7 +91,7 @@ public:
 		return m_buf[m_tail & m_mask];
 	}
 
-	T& front() const
+	const T& front() const
 	{
 		assert(!empty() && "ringbuffer is empty!");
 
@@ -105,7 +105,7 @@ public:
 		return m_buf[m_head - 1 & m_mask];
 	}
 
-	T& back() const
+	const T& back() const
 	{
 		assert(!empty() && "ringbuffer is empty!");
 
