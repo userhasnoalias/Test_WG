@@ -112,25 +112,25 @@ public:
 		return m_buf[m_head - 1 & m_mask];
 	}
 
-	T& operator[](index_t index)
+	T& operator[](index_type index)
 	{
 		return const_cast<T&>(static_cast<const ring_buffer&>(*this)[index]);
 	}
 
-	const T& operator[](index_t index) const
+	const T& operator[](index_type index) const
 	{
 		assert(index < size() && "ringbuffer out of bounds");
 
 		return m_buf[m_tail + index & m_mask];
 	}
 
-	T& at(index_t index)
+	T& at(index_type index)
 	{
 		check_position(index);
 		return (*this)[index];
 	}
 
-	const T& at(index_t index) const
+	const T& at(index_type index) const
 	{
 		check_position(index);
 		return (*this)[index];
@@ -138,7 +138,7 @@ public:
 
 private:
 	// For internal use only
-	void check_position(index_t index)
+	void check_position(index_type index)
 	{
 		if (index >= size())
 		{
