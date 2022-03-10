@@ -36,14 +36,13 @@ public:
 		m_buf[m_head] = value;
 		m_head = modulo_inc(m_head, m_max_size);
 
-		if (!full())
-		{
-			++m_count;
-		}
-
 		if (full())
 		{
 			m_tail = modulo_inc(m_tail, m_max_size);
+		}
+		else
+		{
+			++m_count;
 		}
 	}
 
