@@ -10,3 +10,9 @@
 
 Листинг MSVC:
 ![](https://github.com/userhasnoalias/Test_WG/blob/master/task1/msvc_iseven.png)
+
+Листинг GCC:
+![](https://github.com/userhasnoalias/Test_WG/blob/master/task1/gcc_iseven.png)
+
+Как видно из обоих листингов GCC оптимизировал isEven и она превратилась в те же инструкции, что и isEven2 (NOT и AND). MSVC же не оптимизировал isEven и появились дополнительные
+инструкции.
