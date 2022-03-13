@@ -2,6 +2,7 @@
 #define SORT_H
 
 #include <algorithm>
+#include <cassert>
 #include <cstdint>
 #include <type_traits>
 
@@ -114,9 +115,9 @@ void radix_sort(T*& first, T* last)
 template<typename T>
 void insertion_sort(T* first, T* last)
 {
-	for (int i = 1; i < last - first; ++i)
+	for (std::size_t i = 1; i < last - first; ++i)
 	{
-		for (int j = i; j >= 1 && first[j] < first[j - 1]; --j)
+		for (std::size_t j = i; j >= 1 && first[j] < first[j - 1]; --j)
 		{
 			std::swap(first[j], first[j - 1]);
 		}
@@ -126,7 +127,9 @@ void insertion_sort(T* first, T* last)
 template<typename T>
 bool is_sorted(T* first, T* last)
 {
-	for (int i = 0; i < last - first - 1; ++i)
+	if (first == last) { return true; }
+
+	for (std::size_t i = 0; i < last - first - 1; ++i)
 	{
 		if (first[i] > first[i + 1]) { return false; }
 	}
@@ -139,8 +142,9 @@ void sort(T*& first, T* last)
 {
 	static_assert(std::is_integral<T>::value && std::is_signed<T>::value,
 		"sort: T must be a signed integral type");
+	assert(first < last && "sort: first < last");
 
-	if (last - first <= 1 || is_sorted(first, last)) { return; }
+	if (is_sorted(first, last)) { return; }
 
 	if (last - first <= 64)
 	{
