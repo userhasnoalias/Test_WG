@@ -3,12 +3,12 @@
 
 bool isEven(int value)
 {
-	return !(value & 1);
+	return value % 2 == 0;
 }
 
 bool isEven2(int value)
 {
-	return value % 2 == 0;
+	return !(value & 1);
 }
 
 #endif // !IS_EVEN_H
