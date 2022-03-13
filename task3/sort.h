@@ -16,11 +16,8 @@ void create_counters(T* first, T* last, uint32* counters)
 	unsigned char* beg = (unsigned char*)first;
 	unsigned char* end = (unsigned char*)last;
 
-	// проходим исходный массив байт за байтом
 	while (beg != end)
 	{
-		// счетчики дл€ i-ого байта начинаютс€ с radix * i
-		// в counters[0..255] находитс€ младший байт числа (т.к. little-endian)
 		for (int i = 0; i < sizeof(T); ++i, ++beg)
 		{
 			++counters[radix * i + *beg];
@@ -39,8 +36,7 @@ template<typename T>
 void radix_step(T* source, T* dest, std::size_t size, uint32* counters, int byte_offset)
 {
 	std::size_t sum = 0;
-	//  аждый i-ый эл-т counters будет содержать
-	// кол-во чисел в source, которые меньше i
+
 	for (int i = 0; i < radix; ++i)
 	{
 		sum += counters[i];
@@ -59,13 +55,13 @@ template<typename T>
 void radix_last_step(T* source, T* dest, std::size_t size, uint32* counters, int byte_offset)
 {
 	std::size_t sum = 0;
-	// ѕосчитаем сколько всего отрицательных чисел в массиве
+	// Count how many negative numbers are in the array
 	for (int i = radix / 2; i < radix; ++i)
 	{
 		sum += counters[i];
 	}
-	// ѕервые 128 чисел положительные
-	// ѕеред ними находитс€ sum отрицательных
+	// First 128 numbers are positive
+	// Before them are sum negative
 	for (int i = 0; i < radix / 2; ++i)
 	{
 		sum += counters[i];
