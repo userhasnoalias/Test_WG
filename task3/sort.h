@@ -56,7 +56,7 @@ void radix_step(T* source, T* dest, std::size_t size, uint32* counters, int byte
 }
 
 template<typename T>
-void radix_sort_negative_step(T* source, T* dest, std::size_t size, uint32* counters, int byte_offset)
+void radix_last_step(T* source, T* dest, std::size_t size, uint32* counters, int byte_offset)
 {
 	std::size_t sum = 0;
 	// Посчитаем сколько всего отрицательных чисел в массиве
@@ -105,7 +105,7 @@ void radix_sort(T*& first, T* last)
 		std::swap(first, output);
 	}
 
-	radix_sort_negative_step(first, output, size, counters + i * radix, i);
+	radix_last_step(first, output, size, counters + i * radix, i);
 	std::swap(first, output);
 
 	delete[] output;
